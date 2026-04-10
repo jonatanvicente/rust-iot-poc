@@ -1,0 +1,8 @@
+[package]
+name = "common"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# We need serde to turn our structs into JSON for MQTT/HTTP
+serde = { version = "1.0", features = ["derive"] }

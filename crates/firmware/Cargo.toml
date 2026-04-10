@@ -1,0 +1,21 @@
+[package]
+name = "firmware"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# The shared data model
+common = { path = "../common" }
+
+# ESP32 Standard Library support
+esp-idf-svc = { version = "0.49", features = ["critical-section", "nmp-at-initialization"] }
+
+# MQTT Client (using the sync version is often easier for simple ESP32 tasks)
+rumqttc = { version = "0.24", default-features = false, features = ["use-rustls-native-certs"] }
+
+# Required for ESP32 logging and system calls
+anyhow = "1.0"
+log = "0.4"
+
+[build-dependencies]
+embuild = "0.31"

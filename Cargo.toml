@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/gateway",
+    "crates/firmware",
+    "crates/common",
+]
+
+# Shared profile to make the binaries smaller for the ESP32/Pi
+[profile.release]
+opt-level = "s" # Optimize for size
+lto = true      # Link Time Optimization
