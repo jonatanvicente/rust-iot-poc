@@ -5,6 +5,11 @@ members = [
     "crates/firmware",
     "crates/common",
 ]
+# firmware requires the ESP32 toolchain; exclude it from the default host build
+default-members = [
+    "crates/gateway",
+    "crates/common",
+]
 
 # Shared profile to make the binaries smaller for the ESP32/Pi
 [profile.release]

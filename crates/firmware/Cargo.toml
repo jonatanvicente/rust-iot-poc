@@ -8,10 +8,10 @@ edition = "2021"
 common = { path = "../common" }
 
 # ESP32 Standard Library support
-esp-idf-svc = { version = "0.49", features = ["critical-section", "nmp-at-initialization"] }
+esp-idf-svc = { version = "0.49", features = ["critical-section"] }
 
 # MQTT Client (using the sync version is often easier for simple ESP32 tasks)
-rumqttc = { version = "0.24", default-features = false, features = ["use-rustls-native-certs"] }
+rumqttc = { version = "0.24", default-features = false, features = ["use-rustls"] }
 
 # Required for ESP32 logging and system calls
 anyhow = "1.0"
