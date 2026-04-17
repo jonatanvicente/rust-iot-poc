@@ -53,16 +53,45 @@ Compiling directly on a Raspberry Pi (especially older ones or Zeros) can be ver
 
 2. **Transfer to DietPi**
 
-``` rust
+``` bash
 scp target/aarch64-unknown-linux-gnu/release/your_project_name root@<PI_IP_ADDRESS>:/home/dietpi/
 ``` 
-3. **Run** it. SSH into the Pi and run:
+
+3. **Folding into RPi** (optional): You can create a folder for the gateway on the Pi and move the binary there:
+   
+   - /usr/local/bin/iot-bridge/gateway (or any path you prefer)
+
+4. **Set permissions**: 
+
+```bash
+sudo chown iotuser:iotuser /usr/local/bin/iot-bridge/gateway 
+sudo chmod +x /usr/local/bin/iot-bridge/gateway
+```
+
+6. **Run** it. SSH into the Pi and run:
 
 ``` rust
 chmod +x your_project_name
-./your_project_name
+./usr/local/bin/iot-bridge/gateway
+```
+4. Configuration detail (Raspberry Pi):
+See [README_config.md](README_config.md) for details on how to set up the server to start at boot time and run as a service.
+
+
+### Tests over Gateway
+
+* Send a message simulating a ESP32 client:
+
+```bash
+mosquitto_pub -h 192.168.1.62 -t "esp32/sensor" -m "Test-Data-123"
 ```
 
+* From another cmd window, subscribe to the topic to see the message:
+
+```bash
+mosquitto_sub -h 192.168.1.62 -t "esp32/sensor"
+```
+You can see the message "Test-Data-123" in the subscriber window, confirming that the gateway is receiving and processing messages correctly.
 
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct_EN.md)
