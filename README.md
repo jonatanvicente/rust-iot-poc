@@ -94,6 +94,40 @@ mosquitto_sub -h 192.168.1.62 -t "esp32/sensor"
 You can see the message "Test-Data-123" in the subscriber window, confirming that the gateway is receiving and processing messages correctly.
 
 
+## ESP32 (Edge Device)
+
+### Configuration
+
+* ESP32 needs to know your WiFi credentials and the Pi's IP address, we’ll use a cfg.toml file or environment variables.
+* Make sure you have the ESP32 tools installed:
+
+```bash
+espup install
+# Source the export file (usually in ~/export-esp.sh)
+. $HOME/export-esp.sh
+```
+
+### Firmware code
+
+- Wifi Connection
+- MQTT Client setup
+- Loop (Publising data)
+
+### Flashing the ESP32
+
+1. Connect your ESP32 to your computer via USB, and find your device (usually `/devttyUSB0` or `/dev/ttyACM0` on Linux, COM3 or similar on Windows).
+2. Flash and monitor. Run this from the root of your workspace:
+
+```bash
+cargo espflash flash -p firmware --monitor # monitor opens a serial terminal to see the output from the ESP32
+```
+
+### Verify the Whole Chain
+
+1. Check the logs. `sudo journalctl -u iot-bridge -f`
+2. Check the Web API. `http:192.168.1.62:3000` shoulds show the latest count sent by the ESP32.
+
+
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct_EN.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct_ES.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](code_of_conduct_CA.md) 
